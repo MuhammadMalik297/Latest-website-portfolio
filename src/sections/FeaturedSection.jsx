@@ -19,6 +19,9 @@ export function FeaturedSection({ featured }) {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         return undefined;
       }
+      if (window.matchMedia('(max-width: 960px)').matches) {
+        return undefined;
+      }
 
       const stage = stageRef.current;
       const viewport = viewportRef.current;
