@@ -108,50 +108,54 @@ export function HeroSection({ hero, rotatingRole, metrics, onOpenPalette }) {
 
         <div className="hero__visual reveal">
           <div className="hero__visual-shell tilt-card spotlight-card" data-accent={activeLane.accent}>
-            <Suspense fallback={<div className="hero__scene-fallback" />}>
-              <HeroScene lanes={heroLanes} activeLaneIndex={activeLaneIndex} onSelectLane={setActiveLaneIndex} />
-            </Suspense>
-
-            <div className="hero__system-card" data-accent={activeLane.accent}>
-              <p>Interactive portfolio map · tap a node or use the lane chips</p>
-              <div className="hero__lane-rail" role="tablist" aria-label="Hero capability lanes">
-                {heroLanes.map((lane, index) => (
-                  <button
-                    key={lane.key}
-                    type="button"
-                    className={`hero__lane-chip ${index === activeLaneIndex ? 'is-active' : ''}`.trim()}
-                    data-accent={lane.accent}
-                    aria-pressed={index === activeLaneIndex}
-                    onClick={() => setActiveLaneIndex(index)}
-                  >
-                    {lane.label}
-                  </button>
-                ))}
+            <div className="hero__visual-inner">
+              <div className="hero__scene-wrap">
+                <Suspense fallback={<div className="hero__scene-fallback" />}>
+                  <HeroScene lanes={heroLanes} activeLaneIndex={activeLaneIndex} onSelectLane={setActiveLaneIndex} />
+                </Suspense>
               </div>
 
-              <div className="hero__system-focus">
-                <div className="hero__system-focus-head">
-                  <strong>{activeLane.headline}</strong>
-                  <a href={activeLane.href}>Jump there</a>
-                </div>
-                <span className="hero__system-copy">{activeLane.summary}</span>
-                <div className="hero__system-proof">
-                  {activeLane.chips.map((chip) => (
-                    <span key={chip}>{chip}</span>
+              <div className="hero__system-card" data-accent={activeLane.accent}>
+                <p>Interactive portfolio map · tap a node or use the lane chips</p>
+                <div className="hero__lane-rail" role="tablist" aria-label="Hero capability lanes">
+                  {heroLanes.map((lane, index) => (
+                    <button
+                      key={lane.key}
+                      type="button"
+                      className={`hero__lane-chip ${index === activeLaneIndex ? 'is-active' : ''}`.trim()}
+                      data-accent={lane.accent}
+                      aria-pressed={index === activeLaneIndex}
+                      onClick={() => setActiveLaneIndex(index)}
+                    >
+                      {lane.label}
+                    </button>
                   ))}
                 </div>
-              </div>
 
-              <div className="hero__system-grid">
-                {metrics.map((item) => (
-                  <div key={item.label} className="hero__system-stat">
-                    <strong>
-                      {item.value}
-                      {item.suffix}
-                    </strong>
-                    <span>{item.label}</span>
+                <div className="hero__system-focus">
+                  <div className="hero__system-focus-head">
+                    <strong>{activeLane.headline}</strong>
+                    <a href={activeLane.href}>Jump there</a>
                   </div>
-                ))}
+                  <span className="hero__system-copy">{activeLane.summary}</span>
+                  <div className="hero__system-proof">
+                    {activeLane.chips.map((chip) => (
+                      <span key={chip}>{chip}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hero__system-grid">
+                  {metrics.map((item) => (
+                    <div key={item.label} className="hero__system-stat">
+                      <strong>
+                        {item.value}
+                        {item.suffix}
+                      </strong>
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

@@ -688,6 +688,17 @@ body.cursor-hover .cursor-glow {
   box-shadow: var(--shadow-strong);
 }
 
+.hero__visual-inner {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__scene-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .hero-scene {
   position: absolute;
   inset: 0;
@@ -757,11 +768,16 @@ body.cursor-hover .cursor-glow {
   left: 26px;
   right: 26px;
   bottom: 22px;
+  z-index: 1;
+  max-width: calc(100% - 52px);
+  box-sizing: border-box;
   padding: 18px;
   border-radius: 22px;
   background: rgba(7, 12, 24, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: var(--blur);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .hero__system-lines {
@@ -2000,10 +2016,6 @@ body.cursor-hover .cursor-glow {
     min-height: auto;
   }
 
-  .hero__visual-shell {
-    min-height: 520px;
-  }
-
   .hero__title {
     font-size: clamp(2.8rem, 10vw, 5.5rem);
     max-width: 100%;
@@ -2081,16 +2093,6 @@ body.cursor-hover .cursor-glow {
   .contact-links a,
   .filter-chip {
     justify-content: center;
-  }
-
-  .hero__visual-shell {
-    min-height: 460px;
-  }
-
-  .hero__system-card {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
   }
 
   .hero__orb-label {
@@ -2794,8 +2796,10 @@ body {
 }
 
 /* === Phase 3 polish: meaningful 3D, centered horizontal stage, and stronger mobile parity === */
-.hero__visual-shell {
-  min-height: 680px;
+@media (min-width: 961px) {
+  .hero__visual-shell {
+    min-height: 680px;
+  }
 }
 
 .hero__visual-shell[data-accent='cyan'] {
@@ -3012,6 +3016,105 @@ body {
 .scene-hotspot.is-active[data-accent='web'] {
   border-color: rgba(255, 136, 198, 0.32);
   background: linear-gradient(135deg, rgba(255, 136, 198, 0.2), rgba(154, 136, 255, 0.12));
+}
+
+/* Hero: stack 3D stage + glass card on narrow viewports — avoids clipping, overlap, and layout jump */
+@media (max-width: 960px) {
+  .hero__visual-shell {
+    transform: none;
+    transform-style: flat;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__visual-inner {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+
+  .hero__scene-wrap {
+    position: relative;
+    width: 100%;
+    min-height: min(44vh, 380px);
+    aspect-ratio: 5 / 4;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .hero-scene {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__system-card {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  .hero__lane-rail {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    row-gap: 10px;
+  }
+
+  .hero__lane-chip {
+    flex: 0 1 auto;
+  }
+
+  .hero__system-focus {
+    min-height: 14rem;
+  }
+
+  .hero__system-focus-head {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px 14px;
+  }
+
+  .hero__system-focus-head strong {
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
+
+  .hero__system-focus-head a {
+    white-space: normal;
+    text-align: right;
+    line-height: 1.35;
+    letter-spacing: 0.1em;
+  }
+
+  .hero__system-copy {
+    display: block;
+    font-size: 0.95rem;
+  }
+
+  .hero__footer {
+    margin-top: clamp(32px, 8vw, 56px);
+    padding-top: 12px;
+  }
+
+  .hero__stack-row {
+    gap: 8px;
+    row-gap: 10px;
+  }
+
+  .hero__stack-row span {
+    max-width: 100%;
+  }
 }
 
 .systems-lab__inspector {
